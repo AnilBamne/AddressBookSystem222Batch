@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AddressBookSystem222Batch
 {
-    internal class Contacts
+    public class Contact
     {
         //Defining variables globally
         public String FirstName;
@@ -18,7 +18,7 @@ namespace AddressBookSystem222Batch
         public String PhoneNum;
         public String Email;
         //consstructor
-        public Contacts(String firstName, String lastName, String address, String city, String state, String zip, String phone, String email)
+        public Contact(String firstName, String lastName, String address, String city, String state, String zip, String phone, String email)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
