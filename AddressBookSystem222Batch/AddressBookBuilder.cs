@@ -77,14 +77,10 @@ namespace AddressBookSystem222Batch
                             contact.Email = Console.ReadLine();
                             break;
                         default:
-                            Console.WriteLine("Entered an Invalid input!");
-                            Console.WriteLine("Do you want to try again ");
-                            if (Console.ReadKey().Key == ConsoleKey.Y)
-                            {
-                                goto ReCheck;
-                            }
-                            break;
+                            Console.WriteLine("Entered an Invalid input\n try again");
+                            goto ReCheck;
                     }
+                    Console.WriteLine("Contact edited succesfully");
                 }
                 else
                 {
