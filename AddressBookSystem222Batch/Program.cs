@@ -34,7 +34,13 @@ namespace AddressBookSystem222Batch
             builder.AddContacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
             //display contacts
             builder.DisplayContact();
+            //edit contact
             builder.EditExistingContact();
+            //after editing display contact
+            builder.DisplayContact();
+            //delet existing contact
+            builder.DeleteExistingContact();
+            //after deleting display contact
             builder.DisplayContact();
         }
     }
