@@ -9,16 +9,16 @@ namespace AddressBookSystem222Batch
     public class Contact
     {
         //Defining variables globally
-        public String FirstName;
-        public String LastName;
-        public String Address;
-        public String City;
-        public String State;
-        public String Zip;
-        public String PhoneNum;
-        public String Email;
+        public string FirstName;
+        public string LastName;
+        public string Address;
+        public string City;
+        public string State;
+        public int Zip;
+        public int PhoneNum;
+        public string Email;
         //consstructor
-        public Contact(String firstName, String lastName, String address, String city, String state, String zip, String phone, String email)
+        public Contact(string firstName, string lastName, string address, string city, string state, int zip, int phone, string email)
         {
             this.FirstName = firstName;
             this.LastName = lastName;

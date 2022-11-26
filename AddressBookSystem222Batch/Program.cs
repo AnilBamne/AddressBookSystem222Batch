@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace AddressBookSystem222Batch
 {
-    internal class Program
+    public class Program
     {
 
         static void Main(string[] args)
@@ -12,35 +12,20 @@ namespace AddressBookSystem222Batch
             Console.WriteLine("Welcome to Address Book");
             Console.WriteLine("Able to create a contact list ");
             //created a Contacts class
-            Console.WriteLine("Enter first name = ");
-            string firstName = Console.ReadLine();
-            Console.WriteLine("Enter last name = ");
-            string lastName = Console.ReadLine();
-            Console.WriteLine("Enter address= ");
-            String address = Console.ReadLine();
-            Console.WriteLine("Enter city= ");
-            String city = Console.ReadLine();
-            Console.WriteLine("Enter state= ");
-            String state = Console.ReadLine();
-            Console.WriteLine("Enter zip= ");
-            String zip = Console.ReadLine();
-            Console.WriteLine("Enter phoneNumber= ");
-            String phoneNumber = Console.ReadLine();
-            Console.WriteLine("Enter email= ");
-            String email = Console.ReadLine();
+            
             //Creating the object of AddressBookBuilder class and calling its methods
             AddressBookBuilder builder = new AddressBookBuilder();
-            //add contacts
-            builder.AddContacts(firstName, lastName, address, city, state, zip, phoneNumber, email);
-            //display contacts
+            ////add contacts
+            builder.AddContacts();
+            ////display contacts
             builder.DisplayContact();
             //edit contact
             builder.EditExistingContact();
-            //after editing display contact
+            ////after editing display contact
             builder.DisplayContact();
-            //delet existing contact
+            ////delet existing contact
             builder.DeleteExistingContact();
-            //after deleting display contact
+            ////after deleting display contact
             builder.DisplayContact();
         }
     }

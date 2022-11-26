@@ -18,11 +18,34 @@ namespace AddressBookSystem222Batch
             this.contactsList = new List<Contact>();
         }
         //Method for adding contacts to list by taking input from user
-        public void AddContacts(String firstName, String lastName, String address, String city, String state, String zip, String phone, String email)
+        public void AddContacts()
         {
-            Contact contact = new Contact(firstName, lastName, address, city, state, zip, phone, email);
-            this.contactsList.Add(contact);
+            Console.WriteLine("How many persons contacts yoy want to add to address book");
+            int num = int.Parse(Console.ReadLine());
+            for (int i = 1; i <= num; i++)
+            {
+                Console.WriteLine("Enter first name = ");
+                string firstName = Console.ReadLine();
+                Console.WriteLine("Enter last name = ");
+                string lastName = Console.ReadLine();
+                Console.WriteLine("Enter address= ");
+                string address = Console.ReadLine();
+                Console.WriteLine("Enter city= ");
+                string city = Console.ReadLine();
+                Console.WriteLine("Enter state= ");
+                string state = Console.ReadLine();
+                Console.WriteLine("Enter zip= ");
+                int zip = int.Parse(Console.ReadLine());
+                Console.WriteLine("Enter phoneNumber= ");
+                int phoneNumber =int.Parse(Console.ReadLine());
+                Console.WriteLine("Enter email= ");
+                string email = Console.ReadLine();
+                Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+                contactsList.Add(contact);
+                Console.WriteLine("contact added succesfully");
+            }
         }
+        
         //DisplayContact method used for displaying contact list
         public void DisplayContact()
         {
@@ -31,7 +54,7 @@ namespace AddressBookSystem222Batch
                 Console.WriteLine("----  Displaying Contacts ----\n");
                 foreach (Contact contact in this.contactsList)
                 {
-                    Console.WriteLine("First Name = " + contact.FirstName);
+                    Console.WriteLine("\nFirst Name = " + contact.FirstName);
                     Console.WriteLine("Last Name = " + contact.LastName);
                     Console.WriteLine("Address = " + contact.Address);
                     Console.WriteLine("City  = " + contact.City);
@@ -51,7 +74,8 @@ namespace AddressBookSystem222Batch
         {
         search:
             Console.WriteLine("\nEnter first name of the person for editing contact");
-            String firstname = Console.ReadLine();
+            string firstname = Console.ReadLine();
+            bool findContact = false;
             foreach (Contact contact in this.contactsList)      //Iterating contacts iin list
             {
                 //Checking the existatnce of the person name in contact list
@@ -77,7 +101,7 @@ namespace AddressBookSystem222Batch
                             break;
                         case 4:
                             Console.WriteLine("Please enter your Phone Number : ");
-                            contact.PhoneNum = Console.ReadLine();
+                            contact.PhoneNum = int.Parse(Console.ReadLine());
                             break;
                         case 5:
                             Console.WriteLine("Please enter your email Id: ");
@@ -88,10 +112,14 @@ namespace AddressBookSystem222Batch
                             goto ReCheck;
                     }
                     Console.WriteLine("Contact edited succesfully");
+                    findContact = true;
                 }
-                else
+            }
+            if (!findContact)
+            {
+                Console.WriteLine("*** Wrong Input ***: please enter a valid First name\n Enter Y/N");
+                if (Console.ReadKey().Key == ConsoleKey.Y)
                 {
-                    Console.WriteLine("*** Wrong Input ***: please enter a valid First name");
                     goto search;
                 }
             }
@@ -99,6 +127,7 @@ namespace AddressBookSystem222Batch
         //DeleteExistingContact method used for deleting existing contact
         public void DeleteExistingContact()
         {
+            bool delete=false;
             Console.WriteLine("\nEnter first name of the person for deleting contact");
             String firstname = Console.ReadLine();
             foreach (Contact contact in this.contactsList)      //Iterating contacts in list
@@ -107,14 +136,12 @@ namespace AddressBookSystem222Batch
                 if (contact.FirstName == firstname)
                 {
                     this.contactsList.Remove(contact);
-                    Console.WriteLine("Contact deleted succesfully");
+                    delete = true;
                     break;
                 }
-                else
-                {
-                    Console.WriteLine("*** Wrong Input ***: please enter a valid First name");
-                }
             }
+            if(!delete)
+            Console.WriteLine("*** Wrong Input ***: please enter a valid First name");
         }
     }
 }
