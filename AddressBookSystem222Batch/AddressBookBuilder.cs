@@ -36,6 +36,7 @@ namespace AddressBookSystem222Batch
             int num = int.Parse(Console.ReadLine());
             for (int i = 1; i <= num; i++)
             {
+                LoopHere :
                 Console.WriteLine("Enter first name = ");
                 string firstName = Console.ReadLine();
                 Console.WriteLine("Enter last name = ");
@@ -52,10 +53,37 @@ namespace AddressBookSystem222Batch
                 string phoneNumber = Console.ReadLine();
                 Console.WriteLine("Enter email= ");
                 string email = Console.ReadLine();
-                Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
-                contactsList.Add(contact);
-                Console.WriteLine("contact added succesfully");
+
+                bool duplicate = Equals(firstName);
+                if (!duplicate)
+                {
+                    Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+                    contactsList.Add(contact);
+                    Console.WriteLine("contact added succesfully");
+                }
+                else
+                {
+                    Console.WriteLine("{0} already exist, Duplicate contacts are not allowed ",firstName);
+                    Console.WriteLine("Do you want try with other name y/n");
+                    string option=Console.ReadLine();
+                    if (option == "y")
+                        goto LoopHere;
+                    else if (option == "n") break;
+                }
             }
+        }
+
+        /// <summary>
+        /// Overriding Equals method
+        /// To check duplicate entries in addressbook of same person name
+        /// using lambda expression
+        /// </summary>
+        private bool Equals(string firstName)
+        {
+            if (this.contactsList.Any(e => e.FirstName == firstName))
+                return true;
+            else
+                return false;
         }
 
         //DisplayContact method used for displaying contact list
