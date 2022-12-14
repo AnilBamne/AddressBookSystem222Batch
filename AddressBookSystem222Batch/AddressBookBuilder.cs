@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -11,6 +12,17 @@ namespace AddressBookSystem222Batch
     {
         //Creating a list of contacts globally
         public List<Contact> contactsList;
+
+        /// <summary>
+        /// Dictionary is used to store multiple contact lists 
+        /// key= first name , value=contact list
+        /// </summary>
+        Dictionary<string,List<Contact>> addressBookDictionary=new Dictionary<string,List<Contact>>();
+        /// <summary>
+        /// adding cotact lists to dictionary
+        /// </summary>
+        
+
         //Constructor
         //Initializing the contacts list 
         public AddressBookBuilder()
@@ -20,7 +32,7 @@ namespace AddressBookSystem222Batch
         //Method for adding contacts to list by taking input from user
         public void AddContacts()
         {
-            Console.WriteLine("How many persons contacts yoy want to add to address book");
+            Console.WriteLine("How many persons contacts you want to add to address book");
             int num = int.Parse(Console.ReadLine());
             for (int i = 1; i <= num; i++)
             {
@@ -35,9 +47,9 @@ namespace AddressBookSystem222Batch
                 Console.WriteLine("Enter state= ");
                 string state = Console.ReadLine();
                 Console.WriteLine("Enter zip= ");
-                int zip = int.Parse(Console.ReadLine());
+                string zip = Console.ReadLine();
                 Console.WriteLine("Enter phoneNumber= ");
-                int phoneNumber =int.Parse(Console.ReadLine());
+                string phoneNumber = Console.ReadLine();
                 Console.WriteLine("Enter email= ");
                 string email = Console.ReadLine();
                 Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
@@ -45,11 +57,11 @@ namespace AddressBookSystem222Batch
                 Console.WriteLine("contact added succesfully");
             }
         }
-        
+
         //DisplayContact method used for displaying contact list
         public void DisplayContact()
         {
-            if(this.contactsList.Count > 0)
+            if (this.contactsList.Count > 0)
             {
                 Console.WriteLine("----  Displaying Contacts ----\n");
                 foreach (Contact contact in this.contactsList)
@@ -67,7 +79,7 @@ namespace AddressBookSystem222Batch
             else Console.WriteLine("No contacts to display");
 
 
-            
+
         }
         //EditExistingContact method used for editin the existing contact details
         public void EditExistingContact()
@@ -101,7 +113,7 @@ namespace AddressBookSystem222Batch
                             break;
                         case 4:
                             Console.WriteLine("Please enter your Phone Number : ");
-                            contact.PhoneNum = int.Parse(Console.ReadLine());
+                            contact.PhoneNum = Console.ReadLine();
                             break;
                         case 5:
                             Console.WriteLine("Please enter your email Id: ");
@@ -127,7 +139,7 @@ namespace AddressBookSystem222Batch
         //DeleteExistingContact method used for deleting existing contact
         public void DeleteExistingContact()
         {
-            bool delete=false;
+            bool delete = false;
             Console.WriteLine("\nEnter first name of the person for deleting contact");
             String firstname = Console.ReadLine();
             foreach (Contact contact in this.contactsList)      //Iterating contacts in list
@@ -140,8 +152,11 @@ namespace AddressBookSystem222Batch
                     break;
                 }
             }
-            if(!delete)
-            Console.WriteLine("*** Wrong Input ***: please enter a valid First name");
+            if (!delete)
+                Console.WriteLine("*** Wrong Input ***: please enter a valid First name");
         }
     }
 }
+
+
+

@@ -14,11 +14,11 @@ namespace AddressBookSystem222Batch
         public string Address;
         public string City;
         public string State;
-        public int Zip;
-        public int PhoneNum;
+        public string Zip;
+        public string PhoneNum;
         public string Email;
         //consstructor
-        public Contact(string firstName, string lastName, string address, string city, string state, int zip, int phone, string email)
+        public Contact(string firstName, string lastName, string address, string city, string state, string zip, string phone, string email)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
