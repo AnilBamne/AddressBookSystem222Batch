@@ -8,31 +8,32 @@ namespace AddressBookSystem222Batch
 {
     public class Contact
     {
-        //Defining variables globally
-        public string FirstName;
-        public string LastName;
-        public string Address;
-        public string City;
-        public string State;
-        public string Zip;
-        public string PhoneNum;
-        public string Email;
-        //consstructor
-        public Contact(string firstName, string lastName, string address, string city, string state, string zip, string phone, string email)
+        public String firstName;
+        public String lastName;
+        public String address;
+        public String city;
+        public String state;
+        public String zip;
+        public String phoneNumber;
+        public String email;
+
+        public Contact(String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String email)
         {
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Address = address;
-            this.City = city;
-            this.State = state;
-            this.Zip = zip;
-            this.PhoneNum = phone;
-            this.Email = email;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.address = address;
+            this.city = city;
+            this.state = state;
+            this.zip = zip;
+            this.phoneNumber = phoneNumber;
+            this.email = email;
         }
 
-        public String toString()
+        public override string ToString()
         {
-            return "First Name = " + FirstName + " Last Name = " + LastName + "Address + " + Address + " City = " + City + " stste = " + State + "Zip = " + Zip + "Phone number = " + PhoneNum + " Email = " + Email;
+            return "first Name=" + firstName + ",last name=" + lastName + ",address="
+            + address + ",city=" + city + ",state=" + state + ",zip" +
+            zip + ",phone number=" + phoneNumber + "email=" + email;
         }
     }
 }

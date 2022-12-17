@@ -5,89 +5,124 @@ using System.Threading;
 
 namespace AddressBookSystem222Batch
 {
-     public class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            //Welcome message uc1
-            Console.WriteLine("Welcome to Address Book");
-
-            /// <summary>
-            /// Dictionary is used to store multiple contact lists 
-            /// key= first name , value=contact list
-            /// </summary>
-            Dictionary<string, List<Contact>> addressBookDictionary = new Dictionary<string, List<Contact>>();
-            /// <summary>
-            /// adding cotact lists to dictionary
-            /// </summary>
+            Console.WriteLine("Welcome To  Book System!");
+            Dictionary<string, AdressBookBuilder> adressBookDictionary = new Dictionary<string, AdressBookBuilder>();
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("How many adress book you want = ");
+                    int numOfAdressBook = Convert.ToInt32(Console.ReadLine());
+                    for (int i = 1; i <= numOfAdressBook; i++)
+                    {
+                        Console.WriteLine("Enter the name of adress book = " + i + "=");
+                        String adressBookName = Console.ReadLine();
+                        AdressBookBuilder adressBookBuilder = new AdressBookBuilder();
+                        adressBookDictionary.Add(adressBookName, adressBookBuilder);
+                    }
+                    break;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Please enter integer number,\n string is not allowes \n enter unique name for book \n duplicate name not allowed");
+                }
+            }
 
             while (true)
             {
                 try
                 {
-                    Console.WriteLine("Enter how many address books you want to add");
-                    int n = int.Parse(Console.ReadLine());
-                    for (int i = 1; i <= n; i++)
+                    Console.WriteLine("You have created following adress book");
+                    foreach (string k in adressBookDictionary.Keys)
                     {
-                        Console.WriteLine("enter name of {0} address book ", i);
-                        string name = Console.ReadLine();
-                        addressBookDictionary.Add(name, new List<Contact>());
+                        Console.WriteLine(k);
                     }
-                }
-                catch(Exception)
-                {
-                    Console.WriteLine("Name is invamlid or Duplicate");
-                }
-                break;
-            }
-            ///<summary>
-            ///Displaying names of address books
-            /// </summary>
-            while (true)
-            {
-                Console.WriteLine("List of address books :");
-                foreach(var key in addressBookDictionary.Keys)
-                {
-                    Console.WriteLine(key);
-                }
-
-                //choose address book where you want to add contacts
-                tryAgain:
-                Console.WriteLine("Enter the Adress book name where you want to add contact");
-                string addContactInAdressBook = Console.ReadLine();
-                if (addressBookDictionary.ContainsKey(addContactInAdressBook))
-                {
-                    //Creating the object of AddressBookBuilder class and calling its methods
-                    AddressBookBuilder builder = new AddressBookBuilder();
-                    ////add contacts
-                    builder.AddContacts();
-                    ////display contacts
-                    builder.DisplayContact();
-                    Console.WriteLine("choose option\n1:Edit contact\n2:delete contact");
-                    int option = int.Parse(Console.ReadLine());
-                    switch (option)
+                    Console.WriteLine("\n 1 for Add Contact \n 2 for Edit Existing Contact \n 3 for delete the person,\n 4 for display,\n 5 for exit");
+                    int choise = Convert.ToInt32(Console.ReadLine());
+                    switch (choise)
                     {
                         case 1:
-                            //edit contact
-                            builder.EditExistingContact();
-                            ////after editing display contact
-                            builder.DisplayContact();
+                            Console.WriteLine("Enter the Adress book name where you want to add contact");
+                            string addContactInAdressBook = Console.ReadLine();
+                            if (adressBookDictionary.ContainsKey(addContactInAdressBook))
+                            {
+                                Console.WriteLine("Enter how many contact you want to add");
+                                int numOfContact = Convert.ToInt32(Console.ReadLine());
+                                for (int i = 1; i <= numOfContact; i++)
+                                {
+                                    takeInputAndAddToContact(adressBookDictionary[addContactInAdressBook]);
+                                }
+                                adressBookDictionary[addContactInAdressBook].displayContact();
+                            }
+                            else
+                            {
+                                Console.WriteLine("No adress book found ", addContactInAdressBook);
+                            }
                             break;
                         case 2:
-                            ////delet existing contact
-                            builder.DeleteExistingContact();
-                            ////after deleting display contact
-                            builder.DisplayContact();
+                            Console.WriteLine("Enter the Adress book name where you want to edit contact = ");
+                            string editContactInAdressBook = Console.ReadLine();
+                            if (adressBookDictionary.ContainsKey(editContactInAdressBook))
+                            {
+                                Console.WriteLine("Enter first name to edit contact =");
+                                String firstNameForEditContact = Console.ReadLine();
+                                adressBookDictionary[editContactInAdressBook].editContact(firstNameForEditContact);
+                                adressBookDictionary[editContactInAdressBook].displayContact();
+                            }
+                            break;
+                        case 3:
+                            Console.WriteLine("Enter the Adress book name where you want to delete contact = ");
+                            string deleteContactInAdressBook = Console.ReadLine();
+                            if (adressBookDictionary.ContainsKey(deleteContactInAdressBook))
+                            {
+                                Console.WriteLine("Enter first name to delete contact =");
+                                String firstNameForDeleteContact = Console.ReadLine();
+                                adressBookDictionary[deleteContactInAdressBook].deleteContact(firstNameForDeleteContact);
+                                adressBookDictionary[deleteContactInAdressBook].displayContact();
+                            }
+                            break;
+                        case 4:
+                            Console.WriteLine("Enter the Adress book name to display contact = ");
+                            String displayContactInAdressBook = Console.ReadLine();
+                            adressBookDictionary[displayContactInAdressBook].displayContact();
+                            break;
+                        case 5:
+                            Environment.Exit(0);
+                            break;
+                        default:
+                            Console.WriteLine("Enter The Valid Choise");
                             break;
                     }
                 }
-                else
+                catch
                 {
-                    Console.WriteLine("This name of address book is not found , please enter a valid name");
-                    goto tryAgain;
+                    Console.WriteLine("please enter integer options only");
                 }
-                break;
             }
+        }
+        public static void takeInputAndAddToContact(AdressBookBuilder adressBookBuilder)
+        {
+            Console.WriteLine("Enter first name = ");
+            string firstName = Console.ReadLine();
+            Console.WriteLine("Enter last name = ");
+            string lastName = Console.ReadLine();
+            Console.WriteLine("Enter address= ");
+            String address = Console.ReadLine();
+            Console.WriteLine("Enter city= ");
+            String city = Console.ReadLine();
+            Console.WriteLine("Enter state= ");
+            String state = Console.ReadLine();
+            Console.WriteLine("Enter zip= ");
+            String zip = Console.ReadLine();
+            Console.WriteLine("Enter phoneNumber= ");
+            String phoneNumber = Console.ReadLine();
+            Console.WriteLine("Enter email= ");
+            String email = Console.ReadLine();
+            adressBookBuilder.addContact(firstName, lastName, address, city, state, zip, phoneNumber, email);
         }
     }
 }

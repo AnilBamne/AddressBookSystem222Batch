@@ -8,120 +8,45 @@ using System.Xml.Linq;
 
 namespace AddressBookSystem222Batch
 {
-    class AddressBookBuilder
+    public class AdressBookBuilder : IContacts
     {
-        //Creating a list of contacts globally
-        public List<Contact> contactsList;
+        public List<Contact> contactList;
 
-        /// <summary>
-        /// Dictionary is used to store multiple contact lists 
-        /// key= first name , value=contact list
-        /// </summary>
-        Dictionary<string,List<Contact>> addressBookDictionary=new Dictionary<string,List<Contact>>();
-        /// <summary>
-        /// adding cotact lists to dictionary
-        /// </summary>
-        
-
-        //Constructor
-        //Initializing the contacts list 
-        public AddressBookBuilder()
+        public AdressBookBuilder()
         {
-            this.contactsList = new List<Contact>();
+            this.contactList = new List<Contact>();
         }
-        //Method for adding contacts to list by taking input from user
-        public void AddContacts()
-        {
-            Console.WriteLine("How many persons contacts you want to add to address book");
-            int num = int.Parse(Console.ReadLine());
-            for (int i = 1; i <= num; i++)
-            {
-                LoopHere :
-                Console.WriteLine("Enter first name = ");
-                string firstName = Console.ReadLine();
-                Console.WriteLine("Enter last name = ");
-                string lastName = Console.ReadLine();
-                Console.WriteLine("Enter address= ");
-                string address = Console.ReadLine();
-                Console.WriteLine("Enter city= ");
-                string city = Console.ReadLine();
-                Console.WriteLine("Enter state= ");
-                string state = Console.ReadLine();
-                Console.WriteLine("Enter zip= ");
-                string zip = Console.ReadLine();
-                Console.WriteLine("Enter phoneNumber= ");
-                string phoneNumber = Console.ReadLine();
-                Console.WriteLine("Enter email= ");
-                string email = Console.ReadLine();
 
-                bool duplicate = Equals(firstName);
-                if (!duplicate)
-                {
-                    Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
-                    contactsList.Add(contact);
-                    Console.WriteLine("contact added succesfully");
-                }
-                else
-                {
-                    Console.WriteLine("{0} already exist, Duplicate contacts are not allowed ",firstName);
-                    Console.WriteLine("Do you want try with other name y/n");
-                    string option=Console.ReadLine();
-                    if (option == "y")
-                        goto LoopHere;
-                    else if (option == "n") break;
-                }
+        public void addContact(String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String email)
+        {
+            bool duplicate = equals(firstName);
+            if (!duplicate)
+            {
+                Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+                contactList.Add(contact);
+            }
+            else
+            {
+                Console.WriteLine("Cannot add duplicate contacts first name");
             }
         }
 
-        /// <summary>
-        /// Overriding Equals method
-        /// To check duplicate entries in addressbook of same person name
-        /// using lambda expression
-        /// </summary>
-        private bool Equals(string firstName)
+        private bool equals(string firstName)
         {
-            if (this.contactsList.Any(e => e.FirstName == firstName))
+            if (this.contactList.Any(e => e.firstName == firstName))
                 return true;
             else
                 return false;
         }
 
-        //DisplayContact method used for displaying contact list
-        public void DisplayContact()
+        public void editContact(string firstName)
         {
-            if (this.contactsList.Count > 0)
+            int flag = 1;
+            foreach (Contact contact in contactList)
             {
-                Console.WriteLine("----  Displaying Contacts ----\n");
-                foreach (Contact contact in this.contactsList)
+                if (firstName.Equals(contact.firstName))
                 {
-                    Console.WriteLine("\nFirst Name = " + contact.FirstName);
-                    Console.WriteLine("Last Name = " + contact.LastName);
-                    Console.WriteLine("Address = " + contact.Address);
-                    Console.WriteLine("City  = " + contact.City);
-                    Console.WriteLine("State = " + contact.State);
-                    Console.WriteLine("Zip code  = " + contact.Zip);
-                    Console.WriteLine("Phone number  = " + contact.PhoneNum);
-                    Console.WriteLine("Email ID  = " + contact.Email);
-                }
-            }
-            else Console.WriteLine("No contacts to display");
-
-
-
-        }
-        //EditExistingContact method used for editin the existing contact details
-        public void EditExistingContact()
-        {
-        search:
-            Console.WriteLine("\nEnter first name of the person for editing contact");
-            string firstname = Console.ReadLine();
-            bool findContact = false;
-            foreach (Contact contact in this.contactsList)      //Iterating contacts iin list
-            {
-                //Checking the existatnce of the person name in contact list
-                if (contact.FirstName == firstname)
-                {
-                ReCheck:
+                    flag = 0;
                     Console.WriteLine("Please select the area of editing \n" +
                         "1)First Name\n2)Last Name\n3)Address\n4)Phone Number\n5)Email_Id");
                     int option = Convert.ToInt32(Console.ReadLine());
@@ -129,59 +54,68 @@ namespace AddressBookSystem222Batch
                     {
                         case 1:
                             Console.WriteLine("Please enter your first name : ");
-                            contact.FirstName = Console.ReadLine();
+                            contact.firstName = Console.ReadLine();
                             break;
                         case 2:
                             Console.WriteLine("Please enter your last name : ");
-                            contact.LastName = Console.ReadLine();
+                            contact.lastName = Console.ReadLine();
                             break;
                         case 3:
                             Console.WriteLine("Please enter your Address : ");
-                            contact.Address = Console.ReadLine();
+                            contact.address = Console.ReadLine();
                             break;
                         case 4:
                             Console.WriteLine("Please enter your Phone Number : ");
-                            contact.PhoneNum = Console.ReadLine();
+                            contact.phoneNumber = Console.ReadLine();
                             break;
                         case 5:
                             Console.WriteLine("Please enter your email Id: ");
-                            contact.Email = Console.ReadLine();
+                            contact.email = Console.ReadLine();
                             break;
                         default:
                             Console.WriteLine("Entered an Invalid input\n try again");
-                            goto ReCheck;
+                            break;
                     }
-                    Console.WriteLine("Contact edited succesfully");
-                    findContact = true;
                 }
             }
-            if (!findContact)
+            if (flag == 1)
             {
-                Console.WriteLine("*** Wrong Input ***: please enter a valid First name\n Enter Y/N");
-                if (Console.ReadKey().Key == ConsoleKey.Y)
-                {
-                    goto search;
-                }
+                Console.WriteLine("Contact not found");
             }
         }
-        //DeleteExistingContact method used for deleting existing contact
-        public void DeleteExistingContact()
+
+        public void deleteContact(string firstName)
         {
-            bool delete = false;
-            Console.WriteLine("\nEnter first name of the person for deleting contact");
-            String firstname = Console.ReadLine();
-            foreach (Contact contact in this.contactsList)      //Iterating contacts in list
+            int flag = 1;
+            foreach (Contact contact in contactList)
             {
-                //Checking the existatnce of the person name in contact list
-                if (contact.FirstName == firstname)
+                if (firstName.Equals(contact.firstName))
                 {
-                    this.contactsList.Remove(contact);
-                    delete = true;
+                    flag = 0;
+                    contactList.Remove(contact);
+                    Console.WriteLine("Sucessfully deleted");
                     break;
                 }
             }
-            if (!delete)
-                Console.WriteLine("*** Wrong Input ***: please enter a valid First name");
+            if (flag == 1)
+            {
+                Console.WriteLine("Contact not found");
+            }
+        }
+
+        public void displayContact()
+        {
+            foreach (Contact contact in contactList)
+            {
+                Console.WriteLine("\nFirst name = " + contact.firstName);
+                Console.WriteLine("Last name = " + contact.lastName);
+                Console.WriteLine("Address = " + contact.address);
+                Console.WriteLine("city = " + contact.city);
+                Console.WriteLine("state = " + contact.state);
+                Console.WriteLine("zip = " + contact.zip);
+                Console.WriteLine("phoneNumber = " + contact.phoneNumber);
+                Console.WriteLine("email = " + contact.email);
+            }
         }
     }
 }
