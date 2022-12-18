@@ -53,7 +53,7 @@ namespace AddressBookSystem222Batch
 
                     //Using switch case to add,edit,delete and display contacts
                     Console.WriteLine("\n 1 for Add Contact \n 2 for Edit Existing Contact \n 3 for delete the person,\n 4 for display,\n 5 View person by city or state" +
-                        "\n 6 Sort the entries Alphabetically\n 7 Sort by city\n 8 Sort by state\n9 Sortr by zip code \n 10 for exit");
+                        "\n 6 Sort the entries Alphabetically\n 7 Sort by city\n 8 Sort by state\n 9 Sort by zip code \n 10 for exit");
                     int choise = Convert.ToInt32(Console.ReadLine());
                     switch (choise)
                     {
@@ -119,14 +119,23 @@ namespace AddressBookSystem222Batch
                             break;
                         case 6:
                             Console.WriteLine("Enter the address book name for sorting");
-                            string nameOfAddressBook= Console.ReadLine();
-                            adressBookDictionary[nameOfAddressBook].SortByFirstName();
+                            string sortByFirstNameInAddressBook = Console.ReadLine();
+                            adressBookDictionary[sortByFirstNameInAddressBook].SortByFirstName();
                             break;
                         case 7:
-                            
+                            Console.WriteLine("Enter the address book name for sorting");
+                            string sortByCityInAddressBook = Console.ReadLine();
+                            adressBookDictionary[sortByCityInAddressBook].SortByCity();
                             break;
                         case 8:
-                            
+                            Console.WriteLine("Enter the address book name for sorting");
+                            string sortByStateInAddressBook = Console.ReadLine();
+                            adressBookDictionary[sortByStateInAddressBook].SortByState();
+                            break;
+                        case 9:
+                            Console.WriteLine("Enter the address book name for sorting");
+                            string sortByZip= Console.ReadLine();
+                            adressBookDictionary[sortByZip].SortByZip();
                             break;
                         case 10:
                             Environment.Exit(0);
