@@ -10,9 +10,10 @@ namespace AddressBookSystem222Batch
     public class FileReadWrite
     {
         /// <summary>
-        /// path of the text file
+        /// path of the text file,and csv file
         /// </summary>
         public static string textFilePath = @"C:\Users\HP\Desktop\RFP222\AddressBookSystem222Batch\AddressBookSystem222Batch\Contacts.txt";
+        public static string csvFilePath = @"C:\Users\HP\Desktop\RFP222\AddressBookSystem222Batch\AddressBookSystem222Batch\Contacts.csv";
         
         /// <summary>
         /// writing the contacts to a text file using StreamWriter 
@@ -31,6 +32,10 @@ namespace AddressBookSystem222Batch
                     sw.Close();
                 }
                 Console.WriteLine("Successfully written into text file");
+            }
+            else
+            {
+                Console.WriteLine("No File Beacuse Of Wrong Path Or File Name");
             }
         }
 
@@ -51,6 +56,53 @@ namespace AddressBookSystem222Batch
                     }
                     sr.Close();
                 }
+            }
+            else
+            {
+                Console.WriteLine("No File Beacuse Of Wrong Path Or File Name");
+            }
+        }
+
+        /// <summary>
+        ///writing the contacts to a csv file using StreamWriter
+        /// </summary>
+        /// <param name="contactList"></param>
+        public static void WriteInCSVFile(List<Contact> contactList)
+        {
+            if (File.Exists(csvFilePath))
+            {
+                using(StreamWriter sw = File.AppendText(csvFilePath))
+                {
+                    foreach(Contact contact in contactList)
+                    {
+                        sw.WriteLine(contact.firstName + "," + contact.lastName + "," +contact.address+","+contact.city+","+contact.state+","+contact.zip+","+contact.phoneNumber+","+contact.email);
+                    }
+                    sw.Close();
+                }
+                Console.WriteLine("Successfully written in csv file");
+            }
+            else
+            {
+                Console.WriteLine("No File Beacuse Of Wrong Path Or File Name");
+            }
+        }
+
+        /// <summary>
+        /// Reading contacts data from csv file.
+        /// </summary>
+        public static void ReadFromCSVFile()
+        {
+            if (File.Exists(csvFilePath))
+            {
+                string[] data = File.ReadAllLines(csvFilePath);
+                foreach(string line in data)
+                {
+                    Console.WriteLine(line);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No File Beacuse Of Wrong Path Or File Name");
             }
         }
     }

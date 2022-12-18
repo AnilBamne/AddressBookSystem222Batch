@@ -252,6 +252,22 @@ namespace AddressBookSystem222Batch
         {
             FileReadWrite.ReadFromTextFile();
         }
+
+        /// <summary>
+        /// Writes the in csv file.
+        /// </summary>
+        public void WriteInCSVFile()
+        {
+            FileReadWrite.WriteInCSVFile(contactList);
+        }
+
+        /// <summary>
+        /// Reads from csv file.
+        /// </summary>
+        public void ReadFromCSVFile()
+        {
+            FileReadWrite.ReadFromCSVFile();
+        }
     }
 }
 
