@@ -8,18 +8,38 @@ using System.Xml.Linq;
 
 namespace AddressBookSystem222Batch
 {
+    /// <summary>
+    /// Creating a AdressBookBuilder class ,which is inheriting IContacts interface 
+    /// </summary>
     public class AdressBookBuilder : IContacts
     {
+        /// <summary>
+        /// Creating a list of contacts
+        /// </summary>
         public List<Contact> contactList;
 
+        /// <summary>
+        /// Constructor,Initializing the list 
+        /// </summary>
         public AdressBookBuilder()
         {
             this.contactList = new List<Contact>();
         }
 
-        public void addContact(String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String email)
+        /// <summary>
+        /// AddContact method is used to add contacts to the list
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="address"></param>
+        /// <param name="city"></param>
+        /// <param name="state"></param>
+        /// <param name="zip"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="email"></param>
+        public void AddContact(String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String email)
         {
-            bool duplicate = equals(firstName);
+            bool duplicate = Equals(firstName);
             if (!duplicate)
             {
                 Contact contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
@@ -31,7 +51,12 @@ namespace AddressBookSystem222Batch
             }
         }
 
-        private bool equals(string firstName)
+        /// <summary>
+        /// Overriding the Equals method to find the duplicate contacts
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <returns></returns>
+        private bool Equals(string firstName)
         {
             if (this.contactList.Any(e => e.firstName == firstName))
                 return true;
@@ -39,7 +64,11 @@ namespace AddressBookSystem222Batch
                 return false;
         }
 
-        public void editContact(string firstName)
+        /// <summary>
+        /// Editing the contacts by passing parameter as first name 
+        /// </summary>
+        /// <param name="firstName"></param>
+        public void EditContact(string firstName)
         {
             int flag = 1;
             foreach (Contact contact in contactList)
@@ -84,7 +113,11 @@ namespace AddressBookSystem222Batch
             }
         }
 
-        public void deleteContact(string firstName)
+        /// <summary>
+        /// Deleting the contact of the person
+        /// </summary>
+        /// <param name="firstName"></param>
+        public void DeleteContact(string firstName)
         {
             int flag = 1;
             foreach (Contact contact in contactList)
@@ -103,7 +136,10 @@ namespace AddressBookSystem222Batch
             }
         }
 
-        public void displayContact()
+        /// <summary>
+        /// Displaying the contacts
+        /// </summary>
+        public void DisplayContact()
         {
             foreach (Contact contact in contactList)
             {
@@ -116,6 +152,30 @@ namespace AddressBookSystem222Batch
                 Console.WriteLine("phoneNumber = " + contact.phoneNumber);
                 Console.WriteLine("email = " + contact.email);
             }
+        }
+
+        /// <summary>
+        /// searching the list of persons in a perticular City and state
+        /// </summary>
+        /// <param name="place"> the city or the state </param>
+        /// <returns></returns>
+        public List<string> FindPerson(string place)
+        {
+            List<string> personFound = new List<string>();
+            foreach(Contact contact in contactList.FindAll(e => (e.city.Equals(place))).ToList())
+            {
+                string name=contact.firstName+" "+contact.lastName;
+                personFound.Add(name);
+            }
+            if(personFound.Count == 0)
+            {
+                foreach (Contact contact in contactList.FindAll(e => (e.state.Equals(place))).ToList())
+                {
+                    string name = contact.firstName + " " + contact.lastName;
+                    personFound.Add(name);
+                }
+            }
+            return personFound;
         }
     }
 }

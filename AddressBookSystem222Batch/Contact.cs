@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AddressBookSystem222Batch
 {
+    /// <summary>
+    /// Created a Contact class,Which store person details
+    /// </summary>
     public class Contact
     {
         public String firstName;
@@ -17,6 +20,17 @@ namespace AddressBookSystem222Batch
         public String phoneNumber;
         public String email;
 
+        /// <summary>
+        /// constructor to initialize the parameters
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="address"></param>
+        /// <param name="city"></param>
+        /// <param name="state"></param>
+        /// <param name="zip"></param>
+        /// <param name="phoneNumber"></param>
+        /// <param name="email"></param>
         public Contact(String firstName, String lastName, String address, String city, String state, String zip, String phoneNumber, String email)
         {
             this.firstName = firstName;
@@ -29,6 +43,10 @@ namespace AddressBookSystem222Batch
             this.email = email;
         }
 
+        /// <summary>
+        /// overriding the ToString method
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return "first Name=" + firstName + ",last name=" + lastName + ",address="
