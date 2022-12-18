@@ -177,6 +177,22 @@ namespace AddressBookSystem222Batch
             }
             return personFound;
         }
+
+        public void SortByFirstName()
+        {
+            List<string> sortedList = new List<string>();
+            foreach(Contact contact in contactList)
+            {
+                string sort = contact.firstName.ToString();
+                sortedList.Add(sort);
+            }
+            sortedList.Sort();
+
+            foreach(string contact in sortedList)
+            {
+                Console.WriteLine(contact);
+            }
+        }
     }
 }
 
