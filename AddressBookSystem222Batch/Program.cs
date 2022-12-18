@@ -54,7 +54,7 @@ namespace AddressBookSystem222Batch
                     //Using switch case to add,edit,delete and display contacts
                     Console.WriteLine("\n 1 for Add Contact \n 2 for Edit Existing Contact \n 3 for delete the person,\n 4 for display,\n 5 View person by city or state" +
                         "\n 6 Sort the entries Alphabetically\n 7 Sort by city\n 8 Sort by state\n 9 Sort by zip code \n 10 Write Contacts into text file\n 11 Read Contacts from text file" +
-                        "\n 12 Write into csv file\n 13 Read from csv file\n 14 for exit");
+                        "\n 12 Write into csv file\n 13 Read from csv file\n 14 Write into JSON file\n 15 Read from JSON file\n 16 for exit");
                     int choise = Convert.ToInt32(Console.ReadLine());
                     switch (choise)
                     {
@@ -160,6 +160,16 @@ namespace AddressBookSystem222Batch
                             adressBookDictionary[readFromCSVAddressBook].ReadFromCSVFile();
                             break;
                         case 14:
+                            Console.WriteLine("Enter Adress Book Name To write Contacts = ");
+                            string writeInJSONAddressBook = Console.ReadLine();
+                            adressBookDictionary[writeInJSONAddressBook].WriteInJSONFile();
+                            break;
+                        case 15:
+                            Console.WriteLine("Enter Adress Book Name To read Contacts");
+                            string readFromJSONAddressBook = Console.ReadLine();
+                            adressBookDictionary[readFromJSONAddressBook].ReadFromJSONFile();
+                            break;
+                        case 16:
                             Environment.Exit(0);
                             break;
                         default:

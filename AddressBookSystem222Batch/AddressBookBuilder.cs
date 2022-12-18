@@ -268,6 +268,22 @@ namespace AddressBookSystem222Batch
         {
             FileReadWrite.ReadFromCSVFile();
         }
+
+        /// <summary>
+        /// Writes the in JSON file.
+        /// </summary>
+        public void WriteInJSONFile()
+        {
+            FileReadWrite.WriteInJSONFile(contactList);
+        }
+
+        /// <summary>
+        /// Reads from JSON file.
+        /// </summary>
+        public void ReadFromJSONFile()
+        {
+            FileReadWrite.ReadFromJSONFile();
+        }
     }
 }
 
