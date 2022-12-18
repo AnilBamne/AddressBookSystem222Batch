@@ -13,7 +13,10 @@ namespace AddressBookSystem222Batch
             ///<summary>
             ///Creating a dictionary to store the multiple addressbooks
             /// </summary>
-            Dictionary<string, AdressBookBuilder> adressBookDictionary = new Dictionary<string, AdressBookBuilder>();
+            Dictionary<string, AdressBookBuilder> adressBookDictionary = new Dictionary<string, AdressBookBuilder>();   //for address books
+            Dictionary<string,List<string>> cityDictionary=new Dictionary<string, List<string>>();                      //For cities
+            Dictionary<string,List<string>> stateDictionary=new Dictionary<string, List<string>>();                      //For states
+
 
             //creating the multiple address books 
             while (true)
@@ -49,7 +52,7 @@ namespace AddressBookSystem222Batch
                     }
 
                     //Using switch case to add,edit,delete and display contacts
-                    Console.WriteLine("\n 1 for Add Contact \n 2 for Edit Existing Contact \n 3 for delete the person,\n 4 for display,\n 5 Search person in city or state\n 7 for exit");
+                    Console.WriteLine("\n 1 for Add Contact \n 2 for Edit Existing Contact \n 3 for delete the person,\n 4 for display,\n 5 View person by city or state\n 7 for exit");
                     int choise = Convert.ToInt32(Console.ReadLine());
                     switch (choise)
                     {
@@ -99,7 +102,19 @@ namespace AddressBookSystem222Batch
                             adressBookDictionary[displayContactInAdressBook].DisplayContact();
                             break;
                         case 5:
-                            FindPersonByCityOrState(adressBookDictionary);
+                            Console.WriteLine("Enter 1 for city 2 for state");
+                            string area= Console.ReadLine();
+                            if (area.Contains("1"))
+                            {
+                                cityDictionary = FindPersonByCityOrState(adressBookDictionary,cityDictionary);
+                                DisplayPersonDictionary(cityDictionary);
+                            }
+                            else
+                            {
+                                stateDictionary = FindPersonByCityOrState(adressBookDictionary, stateDictionary);
+                                DisplayPersonDictionary(stateDictionary);
+                            }
+                            //FindPersonByCityOrState(adressBookDictionary,cityDictionary);
                             break;
                         case 6:
                             break;
@@ -146,24 +161,37 @@ namespace AddressBookSystem222Batch
         /// Finding the person by the city name or state name
         /// </summary>
         /// <param name="adressBookBuilder"> dictonary of addresss books </param>
-        public static void FindPersonByCityOrState(Dictionary<string,AdressBookBuilder> adressBookBuilder)
+        public static Dictionary<string, List<string>> FindPersonByCityOrState(Dictionary<string,AdressBookBuilder> adressBookBuilder, Dictionary<string, List<string>> areaDictionary)
         {
-            Console.WriteLine("Enter the city or state where you want to find that person = ");
+            Console.WriteLine("Enter the city or state where you want to view that person : ");
             string findPlace = Console.ReadLine();
-            foreach(var element in adressBookBuilder)
+            foreach (var element in adressBookBuilder)
             {
                 List<string> listOfPersonFoundInPlace = element.Value.FindPerson(findPlace);
-                if(listOfPersonFoundInPlace.Count==0)
+                foreach (var person in listOfPersonFoundInPlace)
                 {
-                    Console.WriteLine("No person in that city/state of adress book  = " + element.Key);
-                }
-                else
-                {
-                    Console.WriteLine("The person in that city/state of adress book = " + element.Key + " = ");
-                    foreach(var person in listOfPersonFoundInPlace)
+                    if (!areaDictionary.ContainsKey(findPlace))
                     {
-                        Console.WriteLine(person);
+                        List<string> personList = new List<string>();
+                        personList.Add(person);
+                        areaDictionary.Add(findPlace, personList);
                     }
+                    else
+                    {
+                        areaDictionary[findPlace].Add(person);
+                    }
+                }
+            }
+            return areaDictionary;
+        }
+
+        public static void DisplayPersonDictionary(Dictionary<string,List<string>> areaDictionary)
+        {
+            foreach(var element in areaDictionary)
+            {
+                foreach (string person in element.Value)
+                {
+                    Console.WriteLine("Paeron name : "+person+" Area :"+element.Key);
                 }
             }
         }
