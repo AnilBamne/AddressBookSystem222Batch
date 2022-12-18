@@ -1,0 +1,3 @@
+﻿first Name=Anil,last name=bamne,address=wadi,city=blk,state=kar,zip585416,phone number=8152817066email=anil@gmail.com
+first Name=Ramdas,last name=bamne,address=wadi,city=blk,state=kar,zip99999,phone number=9868757648email=kjfhf
+first Name=Raghu,last name=pawar,address=blk,city=bidar,state=kar,zipdddd,phone number=9898978787email=addd.com

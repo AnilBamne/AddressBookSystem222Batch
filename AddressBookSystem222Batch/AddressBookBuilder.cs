@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -234,6 +235,22 @@ namespace AddressBookSystem222Batch
             {
                 Console.WriteLine("\n FirstName = " + contact.firstName + "\n Last Name = " + contact.lastName + "\n Address = " + contact.address + "\n City = " + contact.city + "\n State = " + contact.state + "\n Zip = " + contact.zip + "\n Phone Number = " + contact.phoneNumber + "\n Email = " + contact.email);
             }
+        }
+
+        /// <summary>
+        /// Writes the in text file.
+        /// </summary>
+        public void WriteInTxtFile()
+        {
+            FileReadWrite.WriteIntoTextFile(contactList);
+        }
+
+        /// <summary>
+        /// Reads from text file.
+        /// </summary>
+        public void ReadFromTxtFile()
+        {
+            FileReadWrite.ReadFromTextFile();
         }
     }
 }
